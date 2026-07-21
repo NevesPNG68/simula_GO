@@ -1,0 +1,1 @@
+O arquivo dados_go_coffee.xlsx deve ser substituído pela planilha Excel original para atualização automática dos dados.
