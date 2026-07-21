@@ -10,15 +10,45 @@
 <body>
 <div class="app">
 <aside id="side"><div class="brand"><b>GO</b><span>GO Coffee<small>Simulador Gerencial</small></span></div><nav>
-<button class="active" data-page="dashboard">▦ <span>Dashboard</span></button><button data-page="financeiro">R$ <span>Simulador financeiro</span></button><button data-page="cortes">✂ <span>Cortes de despesas</span></button><button data-page="equipe">👥 <span>Funcionários</span></button><button data-page="horarios">⏱ <span>Horários</span></button><button data-page="historico">▥ <span>Comparação mensal</span></button><button data-page="anual">↗ <span>Projeção anual</span></button><button data-page="dados">↻ <span>Dados</span></button>
+<button class="active" data-page="dashboard">▦ <span>Dashboard</span></button>
+<button data-page="cortes">✂ <span>Cortes de despesas</span></button>
+<button data-page="equipe">👥 <span>Funcionários</span></button>
+<button data-page="horarios">⏱ <span>Horários</span></button>
+<button data-page="historico">▥ <span>Comparação mensal</span></button>
+<button data-page="anual">↗ <span>Projeção anual</span></button>
 </nav><small class="foot">Tudo é recalculado automaticamente.</small></aside>
-<main><header><div><h1 id="title">Dashboard executivo</h1><p>Custos, equipe, horários e cenários em uma única simulação.</p></div><div class="actions"><button id="mobile">☰</button><button id="collapse">⇤ Menu</button><button id="theme">☾ Tema</button><button id="excel">Excel</button><button class="primary" id="pdf">PDF</button></div></header>
-<section id="dashboard" class="page active"><div id="kpis" class="grid kpis"></div><div class="grid two"><article><h2>Resultado por cenário</h2><div class="chart"><canvas id="chartResult"></canvas></div></article><article><h2>Receita x ponto de equilíbrio</h2><div class="chart"><canvas id="chartPE"></canvas></div></article></div><article><h2>Cenários automáticos</h2><div id="cards" class="grid three"></div></article></section>
-<section id="financeiro" class="page"><article class="controls"><div class="fields"><label>Receita manual<input id="manualRevenue" type="number" placeholder="Automática"></label><label>MC manual<input id="manualMC" type="number" step=".001" placeholder="Automática"></label><label>Domingos/mês<input id="sundays" type="number" step=".01" value="4.33"></label><label>Valor domingo<input id="sundayRate" type="number" step=".01" value="80"></label></div></article><div id="financialCards" class="grid three"></div></section>
+<main>
+<header><div><h1 id="title">Dashboard executivo</h1><p>Custos, equipe, horários e cenários em uma única simulação.</p></div><div class="actions"><button id="mobile">☰</button><button id="collapse">⇤ Menu</button><button id="theme">☾ Tema</button><button id="excel">Excel</button><button class="primary" id="pdf">PDF</button></div></header>
+
+<section id="dashboard" class="page active">
+<article class="controls dashboard-controls">
+<div class="bar"><div><h2>Premissas da simulação</h2><p>Altere os campos: todos os resultados são recalculados na mesma hora.</p></div><span id="loadStatus" class="status-pill">Carregando planilha...</span></div>
+<div class="fields">
+<label>Abertura<select id="openHour"></select></label>
+<label>Fechamento<select id="closeHour"></select></label>
+<label>Domingos/mês<input id="sundays" type="number" step=".01" value="4.33"></label>
+<label>Valor domingo<input id="sundayRate" type="number" step=".01" value="80"></label>
+<label>Economia utilidades %<input id="utility" type="number" step=".05" value=".60"></label>
+<label>Receita manual<input id="manualRevenue" type="number" placeholder="Automática"></label>
+<label>MC manual<input id="manualMC" type="number" step=".001" placeholder="Automática"></label>
+</div>
+</article>
+<div id="kpis" class="grid kpis"></div>
+<div class="grid two">
+<article><h2>Receita e resultado por cenário</h2><div class="chart"><canvas id="chartResult"></canvas></div></article>
+<article><h2>Receita x ponto de equilíbrio</h2><div class="chart"><canvas id="chartPE"></canvas></div></article>
+</div>
+<article><h2>Cenários automáticos</h2><div id="cards" class="grid three"></div></article>
+</section>
+
 <section id="cortes" class="page"><article><div class="bar"><div><h2>Simulador de cortes</h2><p>Ative, desative, altere valores ou aplique cortes parciais.</p></div><div><button id="all">Ativar tudo</button><button id="reset" class="danger">Restaurar</button></div></div><div class="table"><table><thead><tr><th>Ativa</th><th>Despesa</th><th>Categoria</th><th>Valor</th><th>Corte %</th><th>Considerado</th><th>Anual</th></tr></thead><tbody id="costBody"></tbody><tfoot id="costFoot"></tfoot></table></div></article></section>
+
 <section id="equipe" class="page"><article><div class="bar"><div><h2>Simulador de funcionários</h2><p>Equipe fixa e reforço por temporada.</p></div><button class="primary" id="addEmployee">+ Funcionário</button></div><div class="table"><table><thead><tr><th>Ativo</th><th>Nome</th><th>Custo</th><th>Aplicação</th><th>Ação</th></tr></thead><tbody id="employeeBody"></tbody></table></div></article><div id="employeeCards" class="grid three"></div></section>
-<section id="horarios" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="scheduleScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label><label>Abertura<select id="openHour"></select></label><label>Fechamento<select id="closeHour"></select></label><label>Economia utilidades %<input id="utility" type="number" step=".05" value=".60"></label></div></article><article><h2>Comparação de horários</h2><div class="table"><table><thead><tr><th>#</th><th>Abre</th><th>Fecha</th><th>Horas</th><th>Receita mantida</th><th>Receita</th><th>Custo</th><th>Resultado</th><th>PE</th><th>Status</th></tr></thead><tbody id="scheduleBody"></tbody></table></div></article></section>
+
+<section id="horarios" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="scheduleScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label></div></article><article><h2>Comparação de horários</h2><div class="table"><table><thead><tr><th>#</th><th>Abre</th><th>Fecha</th><th>Horas</th><th>Receita mantida</th><th>Receita</th><th>Custo</th><th>Resultado</th><th>PE</th><th>Status</th></tr></thead><tbody id="scheduleBody"></tbody></table></div></article></section>
+
 <section id="historico" class="page"><article class="controls"><div class="fields"><label>Início<select id="startMonth"></select></label><label>Fim<select id="endMonth"></select></label><label>Bonificação<select id="bonus"><option value="com">Com</option><option value="sem">Sem</option></select></label></div></article><div class="grid two"><article><div class="chart"><canvas id="chartHistory"></canvas></div></article><article><div class="chart"><canvas id="chartMargin"></canvas></div></article></div><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Fixos</th><th>CMV</th><th>Variáveis</th><th>MC%</th><th>Bonificação</th><th>Resultado</th><th>PE</th></tr></thead><tbody id="historyBody"></tbody></table></div></article></section>
+
 <section id="anual" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="annualScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label><label>Crescimento mensal %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article><div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
-<section id="dados" class="page"><div class="grid two"><article><h2>Planilha automática</h2><p id="dataStatus" class="callout">Usando base incorporada.</p></article><article><h2>Carregar outra planilha</h2><input id="file" type="file" accept=".xlsx,.xls"><p>O sistema procura a aba <b>Matriz</b>.</p></article></div></section>
+
 </main></div><script src="data-loader.js"></script><script src="app.js"></script></body></html>
