@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GO Coffee — Simulador</title>
-<link rel="stylesheet" href="style.css?v=20260722-0115">
+<link rel="stylesheet" href="style.css?v=20260722-0730">
+<link rel="stylesheet" href="fixed-cost-reconciliation.css?v=20260722-0730">
+<link rel="stylesheet" href="employee-toggle.css?v=20260722-0730">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -22,7 +24,7 @@
 
 <section id="dashboard" class="page active">
 <article class="controls dashboard-controls">
-<div class="bar"><div><h2>Premissas da simulação</h2><p>Altere os campos: todos os resultados são recalculados na mesma hora.</p></div><span id="loadStatus" class="status-pill">Carregando planilha...</span></div>
+<div class="bar"><div><h2>Premissas da simulação</h2><p>A receita parte da média histórica líquida de cada período e é ajustada pelo horário selecionado.</p></div><span id="loadStatus" class="status-pill">Carregando planilha...</span></div>
 <div class="fields">
 <label>Abertura<select id="openHour"></select></label>
 <label>Fechamento<select id="closeHour"></select></label>
@@ -41,16 +43,16 @@
 <article><h2>Cenários automáticos</h2><div id="cards" class="grid three"></div></article>
 </section>
 
-<section id="cortes" class="page"><article><div class="bar"><div><h2>Simulador de cortes</h2><p>Ative, desative, altere valores ou aplique cortes parciais.</p></div><div><button id="all">Ativar tudo</button><button id="reset" class="danger">Restaurar</button></div></div><div class="table"><table><thead><tr><th>Ativa</th><th>Despesa</th><th>Categoria</th><th>Valor</th><th>Corte %</th><th>Considerado</th><th>Anual</th></tr></thead><tbody id="costBody"></tbody><tfoot id="costFoot"></tfoot></table></div></article></section>
+<section id="cortes" class="page"><article><div class="bar"><div><h2>Simulador de cortes</h2><p>As despesas abaixo e os funcionários ativos compõem o total de custos fixos da planilha.</p></div><div><button id="all">Ativar tudo</button><button id="reset" class="danger">Restaurar</button></div></div><div class="table"><table><thead><tr><th>Ativa</th><th>Despesa</th><th>Categoria</th><th>Valor</th><th>Corte %</th><th>Considerado</th><th>Anual</th></tr></thead><tbody id="costBody"></tbody><tfoot id="costFoot"></tfoot></table></div></article></section>
 
 <section id="equipe" class="page"><article><div class="bar"><div><h2>Simulador de funcionários</h2><p>Equipe fixa e reforço por temporada.</p></div><button class="primary" id="addEmployee">+ Funcionário</button></div><div class="table"><table><thead><tr><th>Ativo</th><th>Nome</th><th>Custo</th><th>Aplicação</th><th>Ação</th></tr></thead><tbody id="employeeBody"></tbody></table></div></article><div id="employeeCards" class="grid three"></div></section>
 
 <section id="horarios" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="scheduleScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label></div></article><article><h2>Comparação de horários</h2><div class="table"><table><thead><tr><th>#</th><th>Abre</th><th>Fecha</th><th>Horas</th><th>Receita mantida</th><th>Receita</th><th>Custo</th><th>Resultado</th><th>PE</th><th>Status</th></tr></thead><tbody id="scheduleBody"></tbody></table></div></article></section>
 
-<section id="historico" class="page"><article class="controls"><div class="fields"><label>Início<select id="startMonth"></select></label><label>Fim<select id="endMonth"></select></label><label>Bonificação<select id="bonus"><option value="com">Com</option><option value="sem">Sem</option></select></label></div></article><div class="grid two"><article><div class="chart"><canvas id="chartHistory"></canvas></div></article><article><div class="chart"><canvas id="chartMargin"></canvas></div></article></div><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Fixos</th><th>CMV</th><th>Variáveis</th><th>MC%</th><th>Bonificação</th><th>Resultado</th><th>PE</th></tr></thead><tbody id="historyBody"></tbody></table></div></article></section>
+<section id="historico" class="page"><article class="controls"><div class="bar"><div><h2>Histórico × simulado</h2><p>Os dados reais permanecem visíveis; a simulação aplica as premissas atuais mês a mês.</p></div><span id="historyPremiseStatus" class="status-pill"></span></div><div class="fields"><label>Início<select id="startMonth"></select></label><label>Fim<select id="endMonth"></select></label><label>Bonificação<select id="bonus"><option value="com">Com</option><option value="sem">Sem</option></select></label></div></article><div id="historyKpis" class="grid kpis"></div><div class="grid two"><article><h2>Receita e resultado</h2><div class="chart"><canvas id="chartHistory"></canvas></div></article><article><h2>Margem de contribuição</h2><div class="chart"><canvas id="chartMargin"></canvas></div></article></div><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita histórica</th><th>Receita simulada</th><th>Retenção</th><th>Fixos simulados</th><th>Ajustes operacionais</th><th>Custo total simulado</th><th>CMV simulado</th><th>Variáveis simuladas</th><th>CMV%</th><th>MKP</th><th>MC%</th><th>Bonificação</th><th>Resultado histórico</th><th>Resultado simulado</th><th>PE simulado</th></tr></thead><tbody id="historyBody"></tbody></table></div></article></section>
 
 <section id="anual" class="page">
-<article class="controls"><div class="bar"><div><h2>Projeção linear de 12 meses</h2><p>Receita e custos partem da simulação atual e evoluem apenas pelos percentuais informados.</p></div></div><div class="fields"><label>Crescimento mensal da receita %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação mensal dos custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article>
-<div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
+<article class="controls"><div class="bar"><div><h2>Projeção linear de 12 meses</h2><p>Custo total = custos fixos + domingos − economia de utilidades. Receita e custos evoluem apenas pelos percentuais informados.</p></div></div><div class="fields"><label>Crescimento mensal da receita %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação mensal dos custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article>
+<div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos fixos</th><th>Ajustes operacionais</th><th>Custo total</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
 
-</main></div><script src="app.js?v=20260722-0115"></script></body></html>
+</main></div><script src="app.js?v=20260722-0730"></script></body></html>

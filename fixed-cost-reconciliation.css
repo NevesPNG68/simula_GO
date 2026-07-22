@@ -1,0 +1,11 @@
+tfoot .subtotal th {
+  background: var(--panel2);
+  color: var(--text);
+  border-top: 1px solid var(--line);
+}
+
+tfoot .grand-total th {
+  background: var(--nav2);
+  color: #fff;
+  border-top: 2px solid var(--accent);
+}
