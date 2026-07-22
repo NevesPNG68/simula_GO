@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GO Coffee — Simulador</title>
-<link rel="stylesheet" href="style.css?v=20260722-0018">
+<link rel="stylesheet" href="style.css?v=20260722-0023">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -28,4 +28,4 @@
 <section id="horarios" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="scheduleScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label></div></article><article><h2>Comparação de horários</h2><div class="table"><table><thead><tr><th>#</th><th>Abre</th><th>Fecha</th><th>Horas</th><th>Receita mantida</th><th>Receita</th><th>Custo</th><th>Resultado</th><th>PE</th><th>Status</th></tr></thead><tbody id="scheduleBody"></tbody></table></div></article></section>
 <section id="historico" class="page"><article class="controls"><div class="fields"><label>Início<select id="startMonth"></select></label><label>Fim<select id="endMonth"></select></label><label>Bonificação<select id="bonus"><option value="com">Com</option><option value="sem">Sem</option></select></label></div></article><div class="grid two"><article><div class="chart"><canvas id="chartHistory"></canvas></div></article><article><div class="chart"><canvas id="chartMargin"></canvas></div></article></div><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Fixos</th><th>CMV</th><th>Variáveis</th><th>MC%</th><th>Bonificação</th><th>Resultado</th><th>PE</th></tr></thead><tbody id="historyBody"></tbody></table></div></article></section>
 <section id="anual" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="annualScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label><label>Crescimento mensal %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article><div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
-</main></div><script src="data-loader.js?v=20260722-0018"></script><script src="app.js?v=20260722-0018"></script></body></html>
+</main></div><script src="data-loader.js?v=20260722-0023"></script><script src="app.js?v=20260722-0023"></script></body></html>
