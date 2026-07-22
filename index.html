@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GO Coffee — Simulador</title>
-<link rel="stylesheet" href="style.css?v=20260722-0115">
+<link rel="stylesheet" href="style.css?v=20260722-0300">
+<link rel="stylesheet" href="fixed-cost-reconciliation.css?v=20260722-0300">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -41,7 +42,7 @@
 <article><h2>Cenários automáticos</h2><div id="cards" class="grid three"></div></article>
 </section>
 
-<section id="cortes" class="page"><article><div class="bar"><div><h2>Simulador de cortes</h2><p>Ative, desative, altere valores ou aplique cortes parciais.</p></div><div><button id="all">Ativar tudo</button><button id="reset" class="danger">Restaurar</button></div></div><div class="table"><table><thead><tr><th>Ativa</th><th>Despesa</th><th>Categoria</th><th>Valor</th><th>Corte %</th><th>Considerado</th><th>Anual</th></tr></thead><tbody id="costBody"></tbody><tfoot id="costFoot"></tfoot></table></div></article></section>
+<section id="cortes" class="page"><article><div class="bar"><div><h2>Simulador de cortes</h2><p>As despesas abaixo e os funcionários ativos compõem o total de custos fixos da planilha.</p></div><div><button id="all">Ativar tudo</button><button id="reset" class="danger">Restaurar</button></div></div><div class="table"><table><thead><tr><th>Ativa</th><th>Despesa</th><th>Categoria</th><th>Valor</th><th>Corte %</th><th>Considerado</th><th>Anual</th></tr></thead><tbody id="costBody"></tbody><tfoot id="costFoot"></tfoot></table></div></article></section>
 
 <section id="equipe" class="page"><article><div class="bar"><div><h2>Simulador de funcionários</h2><p>Equipe fixa e reforço por temporada.</p></div><button class="primary" id="addEmployee">+ Funcionário</button></div><div class="table"><table><thead><tr><th>Ativo</th><th>Nome</th><th>Custo</th><th>Aplicação</th><th>Ação</th></tr></thead><tbody id="employeeBody"></tbody></table></div></article><div id="employeeCards" class="grid three"></div></section>
 
@@ -53,4 +54,4 @@
 <article class="controls"><div class="bar"><div><h2>Projeção linear de 12 meses</h2><p>Receita e custos partem da simulação atual e evoluem apenas pelos percentuais informados.</p></div></div><div class="fields"><label>Crescimento mensal da receita %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação mensal dos custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article>
 <div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
 
-</main></div><script src="app.js?v=20260722-0115"></script></body></html>
+</main></div><script src="app.js?v=20260722-0300"></script></body></html>

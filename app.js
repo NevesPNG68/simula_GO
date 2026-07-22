@@ -1,6 +1,6 @@
 "use strict";
 
-const APP_VERSION = "20260722-0115";
+const APP_VERSION = "20260722-0300";
 const EMBEDDED_MONTHS = [{"mes":"Jul/25","receita_bruta":37727.35,"receita_liquida":36504.98386,"fixos":14502.079999999998,"cmv":20651.28,"variaveis":1149.6700000000164,"total_despesas":36303.03000000001,"bonificacao":0.0,"resultado":201.9538599999869,"cmv_pct":0.5473822041569313,"markup":1.826877074931917,"mc_pct":0.4027952434218659,"break_even":36003.6029144746},{"mes":"Ago/25","receita_bruta":28024.110000000008,"receita_liquida":27116.128836,"fixos":16807.85,"cmv":10637.6,"variaveis":769.8000000000102,"total_despesas":28215.250000000007,"bonificacao":0.0,"resultado":-1099.1211640000074,"cmv_pct":0.37958743382037813,"markup":2.6344391592088447,"mc_pct":0.5793131066387587,"break_even":29013.412276344097},{"mes":"Set/25","receita_bruta":26463.799999999996,"receita_liquida":25606.37288,"fixos":15807.859999999999,"cmv":14787.25,"variaveis":310.9100000000162,"total_despesas":30906.020000000015,"bonificacao":0.0,"resultado":-5299.647120000016,"cmv_pct":0.5587727386089678,"markup":1.789636342119055,"mc_pct":0.41037490663925624,"break_even":38520.532674518625},{"mes":"Out/25","receita_bruta":23587.599999999995,"receita_liquida":22823.361760000003,"fixos":16300.119999999999,"cmv":7468.4800000000005,"variaveis":390.00000000000364,"total_despesas":24158.600000000002,"bonificacao":0.0,"resultado":-1335.2382399999988,"cmv_pct":0.3166273804880531,"markup":3.158286558978533,"mc_pct":0.6556826254328275,"break_even":24859.771126678865},{"mes":"Nov/25","receita_bruta":27014.7,"receita_liquida":26139.42372,"fixos":15939.76,"cmv":8886.34,"variaveis":1012.9999999999982,"total_despesas":25839.1,"bonificacao":0.0,"resultado":300.3237200000003,"cmv_pct":0.3289446116373678,"markup":3.0400254773056172,"mc_pct":0.6212869837514536,"break_even":25656.03403398632},{"mes":"Dez/25","receita_bruta":39608.1,"receita_liquida":38324.797560000006,"fixos":19252.32,"cmv":19113.059999999998,"variaveis":1339.6699999999983,"total_despesas":39705.049999999996,"bonificacao":0.0,"resultado":-1380.2524399999893,"cmv_pct":0.4825543260090739,"markup":2.072305533493852,"mc_pct":0.4663316885632626,"break_even":41284.605940709574},{"mes":"Jan/26","receita_bruta":60202.05000000001,"receita_liquida":58251.503580000004,"fixos":18694.13,"cmv":23849.553,"variaveis":2835.2499999999964,"total_despesas":45378.933,"bonificacao":0.0,"resultado":12872.570580000007,"cmv_pct":0.3961584862973935,"markup":2.5242422782515046,"mc_pct":0.5419036186190064,"break_even":34497.14923041176},{"mes":"Fev/26","receita_bruta":31055.700000000004,"receita_liquida":30742.03743,"fixos":18079.36,"cmv":7152.97,"variaveis":1752.5000000000036,"total_despesas":26984.830000000005,"bonificacao":0.0,"resultado":3757.207429999995,"cmv_pct":0.23032712191320753,"markup":4.3416510903862315,"mc_pct":0.7103162072364959,"break_even":25452.551716844857},{"mes":"Mar/26","receita_bruta":25780.930000000008,"receita_liquida":25520.542607000003,"fixos":16234.850000000002,"cmv":9572.05,"variaveis":482.40000000000146,"total_despesas":26289.300000000003,"bonificacao":0.0,"resultado":-768.7573929999999,"cmv_pct":0.37128412357506096,"markup":2.6933551329130134,"mc_pct":0.6060252262331532,"break_even":26789.066357699845},{"mes":"Abr/26","receita_bruta":25600.039999999997,"receita_liquida":25341.479596,"fixos":16501.43,"cmv":10696.68,"variaveis":1344.390000000003,"total_despesas":28542.500000000004,"bonificacao":0.0,"resultado":-3201.0204040000026,"cmv_pct":0.41783840962748503,"markup":2.39326968741703,"mc_pct":0.5248473967597136,"break_even":31440.43411832851},{"mes":"Mai/26","receita_bruta":25769.449999999997,"receita_liquida":25509.17855500001,"fixos":15152.18,"cmv":16521.879999999997,"variaveis":8346.795999999988,"total_despesas":40020.855999999985,"bonificacao":8374.96,"resultado":-6136.717444999977,"cmv_pct":0.6411421275968249,"markup":1.5597165697850366,"mc_pct":0.025108709542294563,"break_even":603463.1120518874},{"mes":"Jun/26","receita_bruta":24154.71,"receita_liquida":23910.747429,"fixos":16081.94,"cmv":12362.1,"variaveis":1066.5499999999975,"total_despesas":29510.589999999997,"bonificacao":9761.400000000001,"resultado":4161.557429000004,"cmv_pct":0.5117883841288097,"markup":1.9539325842696629,"mc_pct":0.43838434829882633,"break_even":36684.56700702664},{"mes":"Jul/26","receita_bruta":19426.1,"receita_liquida":19229.896389999998,"fixos":16660.21,"cmv":8003.780000000001,"variaveis":481.17000000000553,"total_despesas":25145.160000000003,"bonificacao":7806.05,"resultado":1890.7863899999948,"cmv_pct":0.41201167501454233,"markup":2.4271156878374964,"mc_pct":0.5587625732392203,"break_even":29816.259710127983}];
 const DEFAULT_COSTS = [{"nome":"Pró-labore Natan","centro":"Pró-labore","valor":3500.0,"corte":0,"ativa":true},{"nome":"Aluguel","centro":"Aluguel","valor":2974.33,"corte":0,"ativa":true},{"nome":"Locação da cafeteira","centro":"Locação","valor":803.85,"corte":0,"ativa":true},{"nome":"Segurança","centro":"Administrativo","valor":152.0,"corte":0,"ativa":true},{"nome":"Internet","centro":"Administrativo","valor":223.59,"corte":0,"ativa":true},{"nome":"Contabilidade","centro":"Administrativo","valor":337.01,"corte":0,"ativa":true},{"nome":"Marketing","centro":"Marketing","valor":450.0,"corte":0,"ativa":true},{"nome":"Sistema Nexus","centro":"Administrativo","valor":468.9,"corte":0,"ativa":true},{"nome":"Estacionamento Natan","centro":"Administrativo","valor":150.0,"corte":0,"ativa":true},{"nome":"FGTS","centro":"Encargos","valor":300.44,"corte":0,"ativa":true},{"nome":"Receita Federal","centro":"Impostos","valor":292.1,"corte":0,"ativa":true},{"nome":"Simples Nacional","centro":"Impostos","valor":1057.65,"corte":0,"ativa":true},{"nome":"Energia elétrica","centro":"Utilidades","valor":1377.47,"corte":0,"ativa":true},{"nome":"Água","centro":"Utilidades","valor":251.49,"corte":0,"ativa":true}];
 const HOUR_PROFILES = {"geral":[0,0.06347295846,0.09160397418,0.06935415748,0.05572155859,0.0655918883,0.09589268903,0.15274996863,0.1869045085,0.15854409783],"baixa":[0,0.0578576539,0.08977809141,0.06848172635,0.05516148863,0.06751683905,0.09582013532,0.16478183622,0.1981047735,0.15861401322],"alta":[0,0.0793118513,0.10642901069,0.07633984653,0.06368127051,0.06537627492,0.09458506071,0.12813269641,0.1537048269,0.14965629105]};
@@ -267,7 +267,14 @@ function renderCosts() {
 
   const original = costs.reduce((total, item) => total + Number(item.valor || 0), 0);
   const considered = engine.expenseTotal();
-  $("costFoot").innerHTML = `<tr><th colspan="3">TOTAL DAS DESPESAS</th><th>${money(original)}</th><th>${pct(original ? (original - considered) / original : 0)}</th><th>${money(considered)}</th><th>${money(considered * 12)}</th></tr>`;
+  const activeEmployees = engine.employeeTotal("geral");
+  const fixedOriginal = original + activeEmployees;
+  const fixedConsidered = considered + activeEmployees;
+  const fixedCut = fixedOriginal ? (fixedOriginal - fixedConsidered) / fixedOriginal : 0;
+  $("costFoot").innerHTML = `
+    <tr class="subtotal"><th colspan="3">SUBTOTAL DAS DESPESAS</th><th>${money(original)}</th><th>${pct(original ? (original - considered) / original : 0)}</th><th>${money(considered)}</th><th>${money(considered * 12)}</th></tr>
+    <tr class="subtotal"><th colspan="3">FUNCIONÁRIOS ATIVOS</th><th>${money(activeEmployees)}</th><th>0,00%</th><th>${money(activeEmployees)}</th><th>${money(activeEmployees * 12)}</th></tr>
+    <tr class="grand-total"><th colspan="3">TOTAL DOS CUSTOS FIXOS</th><th>${money(fixedOriginal)}</th><th>${pct(fixedCut)}</th><th>${money(fixedConsidered)}</th><th>${money(fixedConsidered * 12)}</th></tr>`;
 
   document.querySelectorAll("[data-cost-active]").forEach((input) => {
     input.addEventListener("change", () => {
@@ -472,11 +479,21 @@ function parseWorkbook(arrayBuffer) {
   rows.forEach((row) => {
     const monthIndex = row.findIndex((cell) => typeof cell === "string" && monthPattern.test(cell.trim()));
     if (monthIndex < 0) return;
-    if (monthIndex === 2) {
-      output.push({ mes: row[2], receita_bruta: +row[3] || 0, receita_liquida: +row[4] || 0, fixos: +row[5] || 0, cmv: +row[6] || 0, variaveis: +row[7] || 0, total_despesas: +row[8] || 0, bonificacao: +row[9] || 0, resultado: +row[10] || 0, cmv_pct: +row[11] || 0, markup: +row[12] || 0, mc_pct: +row[13] || 0, break_even: +row[14] || 0 });
-    } else {
-      output.push({ mes: row[0], receita_bruta: +row[1] || 0, receita_liquida: +row[2] || 0, fixos: +row[3] || 0, cmv: +row[4] || 0, variaveis: +row[5] || 0, total_despesas: +row[6] || 0, bonificacao: +row[7] || 0, resultado: +row[8] || 0, cmv_pct: +row[9] || 0, markup: +row[10] || 0, mc_pct: +row[11] || 0, break_even: +row[12] || 0 });
-    }
+    output.push({
+      mes: row[monthIndex],
+      receita_bruta: +row[monthIndex + 1] || 0,
+      receita_liquida: +row[monthIndex + 2] || 0,
+      fixos: +row[monthIndex + 3] || 0,
+      cmv: +row[monthIndex + 4] || 0,
+      variaveis: +row[monthIndex + 5] || 0,
+      total_despesas: +row[monthIndex + 6] || 0,
+      bonificacao: +row[monthIndex + 7] || 0,
+      resultado: +row[monthIndex + 8] || 0,
+      cmv_pct: +row[monthIndex + 9] || 0,
+      markup: +row[monthIndex + 10] || 0,
+      mc_pct: +row[monthIndex + 11] || 0,
+      break_even: +row[monthIndex + 12] || 0
+    });
   });
 
   if (output.length < 3) throw new Error("Nenhum dado mensal reconhecido");
