@@ -1,0 +1,122 @@
+.employee-active-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.employee-active-control > input {
+  position: absolute;
+  width: 1px;
+  min-width: 0;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+}
+
+.employee-active-track {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel2);
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.employee-active-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--muted);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, .2);
+  transition: transform .18s ease, background .18s ease;
+}
+
+.employee-active-control > input:checked + .employee-active-track {
+  border-color: var(--good);
+  background: color-mix(in srgb, var(--good) 18%, var(--panel));
+}
+
+.employee-active-control > input:checked + .employee-active-track::after {
+  background: var(--good);
+  transform: translateX(16px);
+}
+
+.employee-active-control > input:focus-visible + .employee-active-track {
+  outline: 3px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  outline-offset: 2px;
+}
+
+.employee-active-label {
+  min-width: 42px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.employee-active-control > input:checked ~ .employee-active-label {
+  color: var(--good);
+}
+
+.employee-inactive td:not(:first-child) {
+  color: var(--muted);
+}
+
+.scenario-formula {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.calculation-details {
+  margin-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.calculation-details summary {
+  padding: 10px 0 2px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.calculation-details summary:hover {
+  color: var(--nav2);
+}
+
+.calculation-details summary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.calculation-line {
+  display: grid;
+  gap: 3px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.calculation-line b {
+  color: var(--text);
+  white-space: normal;
+}
+
+.calculation-line.total {
+  border-bottom: 0;
+}
