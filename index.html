@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GO Coffee — Simulador</title>
-<link rel="stylesheet" href="style.css?v=20260722-0057">
+<link rel="stylesheet" href="style.css?v=20260722-0115">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -49,6 +49,8 @@
 
 <section id="historico" class="page"><article class="controls"><div class="fields"><label>Início<select id="startMonth"></select></label><label>Fim<select id="endMonth"></select></label><label>Bonificação<select id="bonus"><option value="com">Com</option><option value="sem">Sem</option></select></label></div></article><div class="grid two"><article><div class="chart"><canvas id="chartHistory"></canvas></div></article><article><div class="chart"><canvas id="chartMargin"></canvas></div></article></div><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Fixos</th><th>CMV</th><th>Variáveis</th><th>MC%</th><th>Bonificação</th><th>Resultado</th><th>PE</th></tr></thead><tbody id="historyBody"></tbody></table></div></article></section>
 
-<section id="anual" class="page"><article class="controls"><div class="fields"><label>Cenário<select id="annualScenario"><option value="geral">Geral</option><option value="baixa">Baixa</option><option value="alta">Alta</option></select></label><label>Crescimento mensal %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article><div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
+<section id="anual" class="page">
+<article class="controls"><div class="bar"><div><h2>Projeção linear de 12 meses</h2><p>Receita e custos partem da simulação atual e evoluem apenas pelos percentuais informados.</p></div></div><div class="fields"><label>Crescimento mensal da receita %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação mensal dos custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article>
+<div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
 
-</main></div><script src="data-loader.js?v=20260722-0057"></script><script src="app.js?v=20260722-0057"></script><script src="baseline-fix.js?v=20260722-0057"></script><script src="cut-input-fix.js?v=20260722-0057"></script><script src="chart-label-fix.js?v=20260722-0057"></script><script src="scenario-period-fix.js?v=20260722-0057"></script></body></html>
+</main></div><script src="app.js?v=20260722-0115"></script></body></html>
