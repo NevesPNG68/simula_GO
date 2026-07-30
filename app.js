@@ -129,6 +129,42 @@ const engine = {
   }
 };
 
+function buildAnnualProjection() {
+  const growth = Number($("growth")?.value || 0) / 100;
+  const inflation = Number($("inflation")?.value || 0) / 100;
+  const monthLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+  const scenarios = {
+    baixa: engine.scenario("baixa"),
+    alta: engine.scenario("alta")
+  };
+  let accumulated = 0;
+
+  return monthLabels.map((month, index) => {
+    const type = ["Jan", "Dez"].includes(month) ? "alta" : "baixa";
+    const scenario = scenarios[type];
+    const revenueFactor = (1 + growth) ** index;
+    const costFactor = (1 + inflation) ** index;
+    const revenue = scenario.revenue * revenueFactor;
+    const fixedCost = scenario.fixedCost * costFactor;
+    const operationalAdjustment = (scenario.sundayCost - scenario.utilitySaving) * costFactor;
+    const cost = fixedCost + operationalAdjustment;
+    const result = revenue * scenario.margin - cost;
+    accumulated += result;
+
+    return {
+      month,
+      type,
+      revenue,
+      margin: scenario.margin,
+      fixedCost,
+      operationalAdjustment,
+      cost,
+      result,
+      accumulated
+    };
+  });
+}
+
 const valueLabelsPlugin = {
   id: "valueLabels",
   afterDatasetsDraw(chart, _args, options) {
@@ -180,7 +216,7 @@ function scenarioCard(type) {
     <div class="metric"><span>Custo simulado total</span><b>${money(data.total)}</b></div>
     <div class="metric"><span>Ponto de equilíbrio</span><b>${money(data.breakEven)}</b></div>
     <div class="metric"><span>Resultado mensal</span><b class="${cls(data.result)}">${money(data.result)}</b></div>
-    <div class="metric"><span>Resultado anual</span><b class="${cls(data.result)}">${money(data.result * 12)}</b></div>
+    <div class="metric"><span>Resultado anualizado (12×)</span><b class="${cls(data.result)}">${money(data.result * 12)}</b></div>
     <div class="metric"><span>Leitura</span><b class="${cls(data.result)}">${status(data.result)}</b></div>
   </article>`;
 }
@@ -188,6 +224,8 @@ function scenarioCard(type) {
 function renderDashboard() {
   const types = ["geral", "baixa", "alta"];
   const scenarios = types.map((type) => engine.scenario(type));
+  const annualProjection = buildAnnualProjection();
+  const annualResult = annualProjection.reduce((total, item) => total + item.result, 0);
   const best = [...scenarios].sort((a, b) => b.result - a.result)[0];
   const spreadsheetFixed = MONTHS.at(-1)?.fixos || engine.fixedCost("geral");
   const scenarioNames = { geral: "Geral", baixa: "Baixa temporada", alta: "Alta temporada" };
@@ -196,7 +234,7 @@ function renderDashboard() {
     ["Melhor resultado projetado", money(best.result), `${scenarioNames[best.type]} • mensal • ${status(best.result)}`],
     ["Custos fixos atuais", money(engine.fixedCost("geral")), `Planilha: ${money(spreadsheetFixed)}`],
     ["PE geral", money(scenarios[0].breakEven), "Receita mínima"],
-    ["Projeção anual", money(scenarios[0].result * 12), "Base mensal linear"]
+    ["Projeção anual", money(annualResult), "Alta em jan/dez • baixa de fev a nov"]
   ].map(([label, value, note]) => `<article class="kpi"><label>${label}</label><strong>${value}</strong><small>${note}</small></article>`).join("");
 
   $("cards").innerHTML = types.map(scenarioCard).join("");
@@ -497,36 +535,17 @@ function renderHistory() {
 }
 
 function renderAnnual() {
-  const growth = Number($("growth").value || 0) / 100;
-  const inflation = Number($("inflation").value || 0) / 100;
-  const base = engine.scenario("geral");
-  let revenue = base.revenue;
-  let fixedCost = base.fixedCost;
-  let operationalAdjustment = base.sundayCost - base.utilitySaving;
-  let accumulated = 0;
-  const monthLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-  const rows = [];
-
-  for (let index = 0; index < 12; index += 1) {
-    if (index > 0) {
-      revenue *= 1 + growth;
-      fixedCost *= 1 + inflation;
-      operationalAdjustment *= 1 + inflation;
-    }
-    const cost = fixedCost + operationalAdjustment;
-    const result = revenue * base.margin - cost;
-    accumulated += result;
-    rows.push({ month: monthLabels[index], revenue, fixedCost, operationalAdjustment, cost, result, accumulated });
-  }
+  const rows = buildAnnualProjection();
 
   const annualRevenue = rows.reduce((total, item) => total + item.revenue, 0);
   const annualCosts = rows.reduce((total, item) => total + item.cost, 0);
+  const accumulated = rows.at(-1)?.accumulated || 0;
   $("annualKpis").innerHTML = [
     ["Receita anual", money(annualRevenue)], ["Custos anuais", money(annualCosts)],
     ["Resultado anual", money(accumulated)], ["Média mensal", money(accumulated / 12)]
   ].map(([label, value]) => `<article class="kpi"><label>${label}</label><strong>${value}</strong></article>`).join("");
 
-  $("annualBody").innerHTML = rows.map((item) => `<tr><td>${item.month}</td><td>${money(item.revenue)}</td><td>${money(item.fixedCost)}</td><td>${money(item.operationalAdjustment)}</td><td>${money(item.cost)}</td><td class="${cls(item.result)}">${money(item.result)}</td><td class="${cls(item.accumulated)}">${money(item.accumulated)}</td></tr>`).join("");
+  $("annualBody").innerHTML = rows.map((item) => `<tr><td>${item.month}<small class="season-label">${item.type === "alta" ? "Alta" : "Baixa"}</small></td><td>${money(item.revenue)}</td><td>${money(item.fixedCost)}</td><td>${money(item.operationalAdjustment)}</td><td>${money(item.cost)}</td><td class="${cls(item.result)}">${money(item.result)}</td><td class="${cls(item.accumulated)}">${money(item.accumulated)}</td></tr>`).join("");
 
   draw("chartAnnual", {
     type: "bar",

@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style.css?v=20260722-0730">
 <link rel="stylesheet" href="fixed-cost-reconciliation.css?v=20260722-0730">
 <link rel="stylesheet" href="employee-toggle.css?v=20260722-0730">
+<link rel="stylesheet" href="annual-season.css?v=20260730-01">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -52,7 +53,7 @@
 <section id="historico" class="page"><article class="controls"><div class="bar"><div><h2>Histórico × simulado</h2><p>Os dados reais permanecem visíveis; a simulação aplica as premissas atuais mês a mês.</p></div><span id="historyPremiseStatus" class="status-pill"></span></div><div class="fields"><label>Início<select id="startMonth"></select></label><label>Fim<select id="endMonth"></select></label><label>Bonificação<select id="bonus"><option value="com">Com</option><option value="sem">Sem</option></select></label></div></article><div id="historyKpis" class="grid kpis"></div><div class="grid two"><article><h2>Receita e resultado</h2><div class="chart"><canvas id="chartHistory"></canvas></div></article><article><h2>Margem de contribuição</h2><div class="chart"><canvas id="chartMargin"></canvas></div></article></div><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita histórica</th><th>Receita simulada</th><th>Retenção</th><th>Fixos simulados</th><th>Ajustes operacionais</th><th>Custo total simulado</th><th>CMV simulado</th><th>Variáveis simuladas</th><th>CMV%</th><th>MKP</th><th>MC%</th><th>Bonificação</th><th>Resultado histórico</th><th>Resultado simulado</th><th>PE simulado</th></tr></thead><tbody id="historyBody"></tbody></table></div></article></section>
 
 <section id="anual" class="page">
-<article class="controls"><div class="bar"><div><h2>Projeção linear de 12 meses</h2><p>Custo total = custos fixos + domingos − economia de utilidades. Receita e custos evoluem apenas pelos percentuais informados.</p></div></div><div class="fields"><label>Crescimento mensal da receita %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação mensal dos custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article>
+<article class="controls"><div class="bar"><div><h2>Projeção sazonal de 12 meses</h2><p>Janeiro e dezembro usam a alta temporada; fevereiro a novembro usam a baixa. Resultado = receita × MC − custo total.</p></div></div><div class="fields"><label>Crescimento mensal da receita %<input id="growth" type="number" step=".1" value="0"></label><label>Inflação mensal dos custos %<input id="inflation" type="number" step=".1" value="0"></label></div></article>
 <div id="annualKpis" class="grid kpis"></div><article><div class="chart"><canvas id="chartAnnual"></canvas></div></article><article><div class="table"><table><thead><tr><th>Mês</th><th>Receita</th><th>Custos fixos</th><th>Ajustes operacionais</th><th>Custo total</th><th>Resultado</th><th>Acumulado</th></tr></thead><tbody id="annualBody"></tbody></table></div></article></section>
 
 </main></div><script src="app.js?v=20260722-0730"></script></body></html>
